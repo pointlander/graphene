@@ -8,6 +8,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"image/color/palette"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -51,6 +52,38 @@ func main() {
 	}
 	fmt.Println("average=", sum/float64(count))
 
+	deviation := func(values plotter.XYs) float64 {
+		a, b, count := 0.0, 0.0, 0
+		for _, value := range values {
+			a += value.Y * value.Y
+			b += value.Y
+			count++
+		}
+		return math.Sqrt((a - b*b/float64(count)) / float64(count))
+	}
+	sigma1 := deviation(points1)
+	sigma2 := deviation(points2)
+	fmt.Println("sigma1=", sigma1)
+	fmt.Println("sigma2=", sigma2)
+	average := func(values plotter.XYs) float64 {
+		sum, count := 0.0, 0
+		for _, value := range values {
+			sum += value.Y
+			count++
+		}
+		return sum / float64(count)
+	}
+	average1 := average(points1)
+	average2 := average(points2)
+	fmt.Println("average1=", average1)
+	fmt.Println("average2=", average2)
+	corr, count := 0.0, 0
+	for i := range points1 {
+		corr += (points1[i].Y - average1) * (points2[i].Y - average2)
+		count++
+	}
+	corr /= float64(count) * sigma1 * sigma2
+	fmt.Println("corr=", corr)
 	p, err := plot.New()
 	if err != nil {
 		panic(err)
