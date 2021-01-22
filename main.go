@@ -20,7 +20,18 @@ import (
 )
 
 func main() {
-	input, err := os.Open("log1.csv")
+	output, err := os.Create("README.md")
+	if err != nil {
+		panic(err)
+	}
+	defer output.Close()
+	process("Pyrolytic graphite experiment", "log1.csv", output)
+	process("Calibration", "log2.csv", output)
+}
+
+func process(title, log string, output *os.File) {
+	fmt.Fprintf(output, "## %s - %s\n", title, log)
+	input, err := os.Open(log)
 	if err != nil {
 		panic(err)
 	}
@@ -30,7 +41,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("log1.csv", record)
+	fmt.Println(log, record)
 	sum, count := 0.0, 0
 	points1, points2 := make(plotter.XYs, 0, 8), make(plotter.XYs, 0, 8)
 	record, err = decoder.Read()
@@ -43,14 +54,15 @@ func main() {
 		if err1 != nil {
 			panic(err1)
 		}
-		fmt.Println("log1.csv", t1, t2)
-		sum += t1 - t2
+		fmt.Println(log, t1, t2)
+		sum += math.Abs(t1 - t2)
 		points1 = append(points1, plotter.XY{X: float64(count), Y: float64(t1)})
 		points2 = append(points2, plotter.XY{X: float64(count), Y: float64(t2)})
 		count++
 		record, err = decoder.Read()
 	}
 	fmt.Println("average=", sum/float64(count))
+	fmt.Fprintf(output, "* average=%f\n", sum/float64(count))
 
 	deviation := func(values plotter.XYs) float64 {
 		a, b, count := 0.0, 0.0, 0
@@ -84,6 +96,7 @@ func main() {
 	}
 	corr /= float64(count) * sigma1 * sigma2
 	fmt.Println("corr=", corr)
+	fmt.Fprintf(output, "* corr=%f\n", corr)
 	p, err := plot.New()
 	if err != nil {
 		panic(err)
@@ -112,8 +125,10 @@ func main() {
 
 	p.Add(scatter)
 
-	err = p.Save(8*vg.Inch, 8*vg.Inch, "log1.png")
+	image := strings.Replace(log, ".csv", ".png", 1)
+	err = p.Save(8*vg.Inch, 8*vg.Inch, image)
 	if err != nil {
 		panic(err)
 	}
+	fmt.Fprintf(output, "\n![%s](%s?raw=true)\n", log, image)
 }
