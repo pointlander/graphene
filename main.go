@@ -27,6 +27,7 @@ func main() {
 	defer output.Close()
 	process("Pyrolytic graphite experiment", "log1.csv", output)
 	process("Calibration", "log2.csv", output)
+	process("Control", "log3.csv", output)
 }
 
 func process(title, log string, output *os.File) {
