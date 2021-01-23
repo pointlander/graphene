@@ -19,19 +19,60 @@ import (
 	"gonum.org/v1/plot/vg/draw"
 )
 
+// ReadMe is the README
+const ReadMe = `# Pyrolytic graphite temperature experiment
+
+## Rational
+It has been found in an
+[experiment](https://www.nextbigfuture.com/2020/10/tiny-energy-harvested-from-brownian-motion-could-replace-low-power-batteries.html)
+that graphene vibrates thus producing usable energy.
+Pyrolytic graphite is composed of many layers of graphene, so it should be warmer than the
+surrounding environment.
+
+## Experiment Setup
+The experiment consists of one [k type thermocouple](https://en.wikipedia.org/wiki/Thermocouple#Type_K) attached to
+[pyrolytic graphite](https://en.wikipedia.org/wiki/Pyrolytic_carbon) in a thermally
+insulating container. Another thermocouple is outside of the container. Both thermocouples are
+attached to a thermometer.
+
+![setup](setup.png?raw=true)
+
+## Experimental Results
+The experiment measured the temperature difference between the two thermocouples averaged over a period
+of about 80 minutes. On average the difference was found to be ~0.8F. The error in the measurement was
+found to be less than 0.1F. The control experiment found the difference to be ~0.5F. This indicates that
+the pyrolytic graphite is producing heat. The experiment was conducted at a room temperature of ~70F.
+
+## Materials
+* [pyrolytic graphite](https://unitednuclear.com/index.php?main_page=product_info&cPath=16_17_69&products_id=527)
+* [meter](https://www.fluke.com/en-us/product/temperature-measurement/ir-thermometers/fluke-54-ii)
+* [thermocouple](https://www.fluke.com/en-us/product/accessories/probes/fluke-80pk-1)
+
+## Potential error
+Pyrolytic graphite is conductive, so this could impact the thermocouple, but this would probably be noticable
+in the meter readings.
+
+## Data
+
+`
+
 func main() {
 	output, err := os.Create("README.md")
 	if err != nil {
 		panic(err)
 	}
 	defer output.Close()
+	_, err = output.WriteString(ReadMe)
+	if err != nil {
+		panic(err)
+	}
 	process("Pyrolytic graphite experiment", "log1.csv", output)
 	process("Calibration", "log2.csv", output)
 	process("Control", "log3.csv", output)
 }
 
 func process(title, log string, output *os.File) {
-	fmt.Fprintf(output, "## %s - %s\n", title, log)
+	fmt.Fprintf(output, "### %s - %s\n", title, log)
 	input, err := os.Open(log)
 	if err != nil {
 		panic(err)
@@ -131,5 +172,5 @@ func process(title, log string, output *os.File) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Fprintf(output, "\n![%s](%s?raw=true)\n", log, image)
+	fmt.Fprintf(output, "\n![%s](%s?raw=true)\n\n", log, image)
 }
