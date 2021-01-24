@@ -68,6 +68,7 @@ func main() {
 	}
 	process(false, "Pyrolytic graphite experiment", "log1.csv", output)
 	process(true, "Pyrolytic graphite experiment with heat shrink tubing", "log4.csv", output)
+	process(true, "Pyrolytic graphite experiment with heat shrink tubing - 8 hours", "log5.csv", output)
 	process(false, "Calibration", "log2.csv", output)
 	process(false, "Control", "log3.csv", output)
 }

@@ -28,9 +28,7 @@ the pyrolytic graphite is producing heat. The experiment was conducted at a room
 
 ## Potential error
 Pyrolytic graphite is conductive, so this could impact the thermocouple, but this would probably be noticable
-in the meter readings. An experiment was performed to determine if this is a problem. The thermocouple was sealed
-inside heat shrink tubing before being taped to the pyrolytic graphite. The measured difference was ~0.6F, which
-is still larger than the control.
+in the meter readings.
 
 ## Data
 
@@ -46,6 +44,12 @@ is still larger than the control.
 
 ![log4.csv](log4.png?raw=true)
 
+### Pyrolytic graphite experiment with heat shrink tubing - 8 hours - log5.csv
+* average=0.423647
+* corr=0.825082
+
+![log5.csv](log5.png?raw=true)
+
 ### Calibration - log2.csv
 * average=0.007059
 * corr=0.993329
@@ -57,3 +61,4 @@ is still larger than the control.
 * corr=0.863758
 
 ![log3.csv](log3.png?raw=true)
+
