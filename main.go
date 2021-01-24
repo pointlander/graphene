@@ -66,12 +66,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	process("Pyrolytic graphite experiment", "log1.csv", output)
-	process("Calibration", "log2.csv", output)
-	process("Control", "log3.csv", output)
+	process(false, "Pyrolytic graphite experiment", "log1.csv", output)
+	process(true, "Pyrolytic graphite experiment with heat shrink tubing", "log4.csv", output)
+	process(false, "Calibration", "log2.csv", output)
+	process(false, "Control", "log3.csv", output)
 }
 
-func process(title, log string, output *os.File) {
+func process(fluke bool, title, log string, output *os.File) {
 	fmt.Fprintf(output, "### %s - %s\n", title, log)
 	input, err := os.Open(log)
 	if err != nil {
@@ -79,20 +80,28 @@ func process(title, log string, output *os.File) {
 	}
 	defer input.Close()
 	decoder := csv.NewReader(input)
+	decoder.FieldsPerRecord = -1
 	record, err := decoder.Read()
 	if err != nil {
 		panic(err)
+	}
+	t1i, t2i := 1, 2
+	if fluke {
+		t2i = 3
+		for record[0] != "Reading" {
+			record, _ = decoder.Read()
+		}
 	}
 	fmt.Println(log, record)
 	sum, count := 0.0, 0
 	points1, points2 := make(plotter.XYs, 0, 8), make(plotter.XYs, 0, 8)
 	record, err = decoder.Read()
 	for err == nil {
-		t1, err1 := strconv.ParseFloat(strings.TrimSpace(record[1]), 64)
+		t1, err1 := strconv.ParseFloat(strings.TrimSpace(record[t1i]), 64)
 		if err1 != nil {
 			panic(err1)
 		}
-		t2, err1 := strconv.ParseFloat(strings.TrimSpace(record[2]), 64)
+		t2, err1 := strconv.ParseFloat(strings.TrimSpace(record[t2i]), 64)
 		if err1 != nil {
 			panic(err1)
 		}
