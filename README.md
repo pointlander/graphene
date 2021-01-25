@@ -44,11 +44,17 @@ in the meter readings.
 
 ![log4.csv](log4.png?raw=true)
 
-### Pyrolytic graphite experiment with heat shrink tubing - 8 hours - log5.csv
+### Pyrolytic graphite experiment with heat shrink tubing - 8 hours - night - log5.csv
 * average=0.423647
 * corr=0.825082
 
 ![log5.csv](log5.png?raw=true)
+
+### Pyrolytic graphite experiment with heat shrink tubing - 8 hours - day - log6.csv
+* average=0.437475
+* corr=0.885628
+
+![log6.csv](log6.png?raw=true)
 
 ### Calibration - log2.csv
 * average=0.007059
