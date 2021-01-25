@@ -68,3 +68,9 @@ in the meter readings.
 
 ![log3.csv](log3.png?raw=true)
 
+### Control - 8 hours - night - log7.csv
+* average=0.438677
+* corr=0.574128
+
+![log7.csv](log7.png?raw=true)
+
