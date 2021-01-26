@@ -73,6 +73,7 @@ func main() {
 	process(false, "Calibration", "log2.csv", output)
 	process(false, "Control", "log3.csv", output)
 	process(true, "Control - 8 hours - night", "log7.csv", output)
+	process(true, "Thermos Control - 8 hours - day ", "log8.csv", output)
 }
 
 func process(fluke bool, title, log string, output *os.File) {

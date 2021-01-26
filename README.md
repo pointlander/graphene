@@ -74,3 +74,9 @@ in the meter readings.
 
 ![log7.csv](log7.png?raw=true)
 
+### Thermos Control - 8 hours - day  - log8.csv
+* average=0.047695
+* corr=0.971811
+
+![log8.csv](log8.png?raw=true)
+
