@@ -56,6 +56,12 @@ in the meter readings.
 
 ![log6.csv](log6.png?raw=true)
 
+### Thermos Pyrolytic graphite experiment with heat shrink tubing - 8 hours - night - log9.csv
+* average=0.196794
+* corr=0.936163
+
+![log9.csv](log9.png?raw=true)
+
 ### Calibration - log2.csv
 * average=0.007059
 * corr=0.993329
