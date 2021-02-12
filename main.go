@@ -71,6 +71,7 @@ func main() {
 	process(true, "Pyrolytic graphite experiment with heat shrink tubing - 8 hours - night", "log5.csv", output)
 	process(true, "Pyrolytic graphite experiment with heat shrink tubing - 8 hours - day", "log6.csv", output)
 	process(true, "Thermos Pyrolytic graphite experiment with heat shrink tubing - 8 hours - night", "log9.csv", output)
+	process(true, "Thermos graphene in water experiment with liquid probe - 8 hours - night", "log10.csv", output)
 	process(false, "Calibration", "log2.csv", output)
 	process(false, "Control", "log3.csv", output)
 	process(true, "Control - 8 hours - night", "log7.csv", output)

@@ -62,6 +62,12 @@ in the meter readings.
 
 ![log9.csv](log9.png?raw=true)
 
+### Thermos graphene in water experiment with liquid probe - 8 hours - night - log10.csv
+* average=0.585571
+* corr=0.076168
+
+![log10.csv](log10.png?raw=true)
+
 ### Calibration - log2.csv
 * average=0.007059
 * corr=0.993329
